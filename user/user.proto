@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package userPb;
+
+option go_package = "github.com/gin-micro-pb/userPb";
+
+service UserService {
+  //user login
+  rpc UserLogin (LoginRequest) returns (LoginResponse);
+  //user register
+  rpc UserRegister (RegisterRequest) returns (LoginResponse);
+  //
+  rpc GetUserInfoByMobile (GetUserInfoByMobileRequest) returns (UserInfoResponse);
+}
+
+message LoginRequest {
+  string mobile = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  int32 code = 1;
+  string msg = 2;
+  Data data = 3;
+}
+
+enum Gender {
+  unknown = 0;
+  male = 1;
+  female = 2;
+}
+
+message Data {
+  string name = 1;
+  Gender gender = 2;
+  string email = 3;
+  string uid = 4;
+  uint64 mobile = 5;
+}
+
+message RegisterRequest {
+  string mobile = 1;
+  string password = 2;
+  Gender gender = 3;
+  string name = 4;
+}
+
+message GetUserInfoByMobileRequest {
+  uint64 mobile = 1;
+}
+
+message UserInfoResponse {
+  string name = 1;
+  Gender gender = 2;
+  string email = 3;
+  string uid = 4;
+  uint64 phone = 5;
+}
